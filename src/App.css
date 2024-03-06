@@ -45,10 +45,13 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 40px;
+  padding: 0 10px;
   background-color: white;
   box-shadow: gray;
   margin-bottom: 20px;
+  position: fixed;
+  width: 100%;
+  top: 0;
 }
 
 nav > ul {
@@ -60,17 +63,23 @@ nav > ul > li {
   list-style-type: none;
 }
 
+.bodyComponent {
+  margin-top: 100px;
+}
+
 .searchInput {
   margin-left: 20px;
 }
 
 .searchLabel {
-  margin-left: 10px;
+  margin: 10px;
 }
 
 .restaurantCard {
   display: flex;
   flex-direction: column;
+  width: 30%;
+  margin: 10px;
 }
 
 .restaurantCard > img {
@@ -82,8 +91,18 @@ nav > ul > li {
 }
 
 .restaurantCards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  place-items: center;
-  padding: 0 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 70%;
+  margin: auto;
+  margin-top: 40px;
+}
+
+.footer {
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: space-evenly;
 }
