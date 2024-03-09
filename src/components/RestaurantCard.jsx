@@ -4,7 +4,7 @@ import { imageUrl } from "../utils/mockData";
 
 export const RestaurantCard = (props) => {
     // Object Destructuring
-    const { name, rating, cuisines, location, deliveryTime, imageId } =
+    const { name, avgRating, cuisines, locality, sla , cloudinaryImageId} =
       props.resDetails;
   
     return (
@@ -12,15 +12,15 @@ export const RestaurantCard = (props) => {
         <img
           width="200px"
           height="150px"
-          src={`${imageUrl}${imageId}`}
+          src={`${imageUrl}${cloudinaryImageId}`}
           alt=""
         />
         <h2>{name}</h2>
         <span>
-          <FontAwesomeIcon icon={faStar} /> {rating} {deliveryTime}
+          <FontAwesomeIcon icon={faStar} /> {avgRating} {sla.deliveryTime}
         </span>
         <span>{cuisines}</span>
-        <span>{location}</span>
+        <span>{locality}</span>
       </div>
     );
   };
