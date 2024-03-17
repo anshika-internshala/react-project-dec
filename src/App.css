@@ -82,6 +82,13 @@ nav > ul > li {
   margin: 10px;
 }
 
+.shimmerCard {
+  background-color: gray;
+  width: 30%;
+  margin: 10px;
+  height: 300px;
+}
+
 .restaurantCard > img {
   border-radius: 10px;
 }
