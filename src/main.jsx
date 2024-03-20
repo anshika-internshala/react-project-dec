@@ -7,6 +7,8 @@ import { SignIn } from './components/SignIn.jsx';
 import Error from './components/Error.jsx';
 import Body from './components/Body.jsx';
 import RestaurantMenu from './components/RestaurantMenu.jsx';
+import Profile from './components/Profile.jsx';
+import { About } from './components/About.jsx';
 
 const appRouter = createBrowserRouter([
     {
@@ -25,6 +27,10 @@ const appRouter = createBrowserRouter([
         {
             path: "/sign-in",
             element: <SignIn />
+        },
+        {
+            path: "/class",
+            element: <About/>
         },
         {
             path: "/restaurant/:resId",
