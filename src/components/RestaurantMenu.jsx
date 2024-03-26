@@ -1,25 +1,66 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { menuAPI } from "../utils/mockData";
+import Shimmer from "./Shimmer";
+import RestaurantCategory from "./RestaurantCategory";
 
 function RestaurantMenu() {
+  const params = useParams();
+  const [resInfo, setResInfo] = useState(null);
+  const [showIndex, setShowIndex] = useState(null);
 
-    const params = useParams();
-    console.log(params);
+  const dummy = "Dummy Data";
 
-    useEffect(() => {
-        fetchMenu();
-    }, []);
+  useEffect(() => {
+    fetchMenu();
+  }, []);
 
-    async function fetchMenu() {
-      const data =  await fetch(`https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=28.6909835&lng=77.44527719999999&restaurantId=${params.resId}&isMenuUx4=true&submitAction=ENTER`);
-      const menuData = await data.json();
+  async function fetchMenu() {
+    const data = await fetch(`${menuAPI}${params.resId}`);
+    const menuData = await data.json();
 
-      console.log(menuData);
-    }
+    setResInfo(menuData.data);
+
+    console.log("resInfo", resInfo);
+  }
+
+  if (resInfo == null) {
+    return <Shimmer />;
+  } else {
+    const { name, cuisines, costForTwoMessage } =
+      resInfo?.cards[2]?.card?.card?.info;
+
+    const { itemCards } =
+      resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
+        ?.card;
+
+    const categories =
+      resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+        (c) =>
+          c.card?.["card"]?.["@type"] ===
+          "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+      );
 
     return (
-        <h1 style={{marginTop: '100px'}}>RestaurantMenu</h1>
-    )
+      <div className="menu-container">
+        <h1 className="font-bold my-6 text-2xl">{name}</h1>
+        <p className="font-bold text-lg">
+          {cuisines.join(", ")} - {costForTwoMessage}
+        </p>
+        {/* categories accordions */}
+        {categories.map((category, index) => (
+          // controlled component
+          <RestaurantCategory
+            key={category?.card?.card.title}
+            data={category?.card?.card}
+            showItems={index === showIndex ? true : false}
+            setShowIndex={() => setShowIndex(index)}
+            dummy={dummy}
+          />
+        ))}
+      </div>
+    );
+  }
 }
 
 export default RestaurantMenu;
