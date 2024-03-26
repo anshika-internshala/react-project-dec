@@ -1,28 +1,16 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { menuAPI } from "../utils/mockData";
 import Shimmer from "./Shimmer";
 import RestaurantCategory from "./RestaurantCategory";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 
 function RestaurantMenu() {
   const params = useParams();
-  const [resInfo, setResInfo] = useState(null);
   const [showIndex, setShowIndex] = useState(null);
 
+  const resInfo = useRestaurantMenu(params.resId);
+
   const dummy = "Dummy Data";
-
-  useEffect(() => {
-    fetchMenu();
-  }, []);
-
-  async function fetchMenu() {
-    const data = await fetch(`${menuAPI}${params.resId}`);
-    const menuData = await data.json();
-
-    setResInfo(menuData.data);
-
-    console.log("resInfo", resInfo);
-  }
 
   if (resInfo == null) {
     return <Shimmer />;
@@ -31,11 +19,11 @@ function RestaurantMenu() {
       resInfo?.cards[2]?.card?.card?.info;
 
     const { itemCards } =
-      resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
+      resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
         ?.card;
 
     const categories =
-      resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+      resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
         (c) =>
           c.card?.["card"]?.["@type"] ===
           "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"

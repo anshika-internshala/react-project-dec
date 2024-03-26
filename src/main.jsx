@@ -9,6 +9,7 @@ import Body from './components/Body.jsx';
 import RestaurantMenu from './components/RestaurantMenu.jsx';
 import Profile from './components/Profile.jsx';
 import { About } from './components/About.jsx';
+import  Memo from './components/Memo.jsx';
 
 const appRouter = createBrowserRouter([
     {
@@ -35,6 +36,10 @@ const appRouter = createBrowserRouter([
         {
             path: "/restaurant/:resId",
             element: <RestaurantMenu/>
+        },
+        {
+            path: "/memo",
+            element: <Memo/>
         }
       ]
     },   

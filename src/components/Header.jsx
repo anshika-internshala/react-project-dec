@@ -6,8 +6,12 @@ import {
   faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Header = () => {
+
+  const onlineStatus = useOnlineStatus();
+
   return (
     <nav>
       <img
@@ -16,6 +20,9 @@ const Header = () => {
         alt="Restaurant Logo"
       />
       <ul>
+        <li>
+          <span>Online Status: {onlineStatus? "🟢" :"🔴"}</span>
+        </li>
         <li>
           <FontAwesomeIcon icon={faPercent} name="percent" />{" "}
           <Link to="/offers">Offers</Link>

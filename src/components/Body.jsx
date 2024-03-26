@@ -5,6 +5,7 @@ import { TopRatedRestaurants } from "./TopRatedRestaurants";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -38,6 +39,16 @@ const Body = () => {
       setRestaurants(restaurants);
       setFilteredRestaurants(restaurants);
     console.log(restaurants);
+  }
+
+  const onlineStatus = useOnlineStatus();
+
+  if (onlineStatus === false){
+    return (
+      <h1 style={ {marginTop: "100px" }}>
+        Looks like you're offline!! Please check your internet connection
+      </h1>
+    )
   }
 
   console.log("Body Component has been rendered");
