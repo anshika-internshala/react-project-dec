@@ -1,6 +1,14 @@
 import { imageUrl } from "../utils/mockData";
+import { addItem } from "../utils/cartSlice";
+import { useDispatch } from "react-redux";
 
 const ItemList = ({ items, dummy }) => {
+
+  const dispatch = useDispatch();
+
+  const handleAddItem = (item) => {
+    dispatch(addItem(item));
+  }
  
   return (
     <div>
@@ -26,7 +34,7 @@ const ItemList = ({ items, dummy }) => {
             <div className="absolute">
               <button
                 className="add-button"
-                onClick={() => console.log("clicked")}
+                onClick={() => handleAddItem(item)}
               >
                 Add +
               </button>

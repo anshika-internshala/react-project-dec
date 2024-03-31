@@ -10,6 +10,7 @@ import RestaurantMenu from './components/RestaurantMenu.jsx';
 import Profile from './components/Profile.jsx';
 import { About } from './components/About.jsx';
 import  Memo from './components/Memo.jsx';
+import { Cart } from './components/Cart.jsx';
 
 const appRouter = createBrowserRouter([
     {
@@ -40,6 +41,10 @@ const appRouter = createBrowserRouter([
         {
             path: "/memo",
             element: <Memo/>
+        },
+        {
+            path: "/cart",
+            element: <Cart/>
         }
       ]
     },   
