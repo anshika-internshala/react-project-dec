@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import userContext from "../utils/userContext";
+import { useContext } from "react";
 
 const Body = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -21,6 +23,7 @@ const Body = () => {
     fetchData();
   }, []);
 
+  const { currentUser, setUserName } = useContext(userContext);
 
   async function fetchData() {
     console.log("Data is fetched");
@@ -31,24 +34,27 @@ const Body = () => {
 
     console.log(data);
 
-    const card = data?.data?.cards[2].card.card.gridElements == undefined ? data?.data?.cards[4].card.card.gridElements : data?.data?.cards[2].card.card.gridElements;
+    const card =
+      data?.data?.cards[2].card.card.gridElements == undefined
+        ? data?.data?.cards[4].card.card.gridElements
+        : data?.data?.cards[2].card.card.gridElements;
 
     // Optional Chaining
     const restaurants = card.infoWithStyle?.restaurants;
-      
-      setRestaurants(restaurants);
-      setFilteredRestaurants(restaurants);
+
+    setRestaurants(restaurants);
+    setFilteredRestaurants(restaurants);
     console.log(restaurants);
   }
 
   const onlineStatus = useOnlineStatus();
 
-  if (onlineStatus === false){
+  if (onlineStatus === false) {
     return (
-      <h1 style={ {marginTop: "100px" }}>
+      <h1 style={{ marginTop: "100px" }}>
         Looks like you're offline!! Please check your internet connection
       </h1>
-    )
+    );
   }
 
   console.log("Body Component has been rendered");
@@ -78,15 +84,23 @@ const Body = () => {
     <div className="bodyComponent">
       <Search searchFunction={searchRestaurants} />
       <TopRatedRestaurants filter={filterTopRatedRestaurants} />
+      <input
+        type="text"
+        className="border"
+        onChange={(e) => setUserName(e.target.value)}
+      ></input>
 
       <div className="restaurantCards">
         {filteredRestaurants.length == 0 ? (
           <Shimmer />
         ) : (
           filteredRestaurants.map((restaurant) => (
-            <Link to= {"/restaurant/" + restaurant.info.id}>
-              <RestaurantCard key={restaurant.info.id} resDetails={restaurant.info} />
-            </Link>    
+            <Link to={"/restaurant/" + restaurant.info.id}>
+              <RestaurantCard
+                key={restaurant.info.id}
+                resDetails={restaurant.info}
+              />
+            </Link>
           ))
         )}
       </div>

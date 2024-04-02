@@ -8,6 +8,8 @@ import {
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import { useSelector } from "react-redux";
+import { useContext } from "react";
+import userContext from "../utils/userContext";
 
 const Header = () => {
   const onlineStatus = useOnlineStatus();
@@ -15,14 +17,19 @@ const Header = () => {
   // Subscribed to store using selector
   const cartItems = useSelector((store) => store.cart.items);
 
+  const { currentUser } = useContext(userContext);
+
   return (
-    <nav className="flex justify-between items-center py-0 px-2.5 bg-white sm:bg-gray-600">
+    <nav className="flex justify-between items-center py-0 px-2.5 bg-white border">
       <img
         width="100px"
         src="https://logowik.com/content/uploads/images/restaurant9491.logowik.com.webp"
         alt="Restaurant Logo"
       />
       <ul>
+      <li>
+          <h2>{currentUser}</h2>
+      </li>
         <li>
           <span>Online Status: {onlineStatus ? "🟢" : "🔴"}</span>
         </li>

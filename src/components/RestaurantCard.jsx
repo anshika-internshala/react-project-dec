@@ -1,11 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { imageUrl } from "../utils/mockData";
+import userContext from "../utils/userContext";
+import { useContext } from "react";
 
 export const RestaurantCard = (props) => {
     // Object Destructuring
     const { name, avgRating, cuisines, locality, sla , cloudinaryImageId} =
       props.resDetails;
+
+    const { currentUser } = useContext(userContext);
   
     return (
       <div className="restaurantCard">
@@ -21,6 +25,7 @@ export const RestaurantCard = (props) => {
         </span>
         <span>{cuisines}</span>
         <span>{locality}</span>
+        <span>{currentUser}</span>
       </div>
     );
   };
