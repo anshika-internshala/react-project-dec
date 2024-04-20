@@ -1,9 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const routes =  require("./Routes/restaurants.routes.cjs");
+const userRoutes = require("./Routes/users.routes.cjs");
 
 const app = express();
 
+// built in middlewares
 app.use(express.json());
 
 app.listen("5100", () => {
@@ -54,11 +56,24 @@ const users = [
     },
 ];
 
+// application level middlewares
+app.use(loggedInUserRequest);
+
 // Fetch all users
 
-app.get("/users", (req, res) => {
+app.get("/users", authUser, (req, res) => {
     res.send(users);
 })
+
+function authUser (req, res, next) {
+    console.log("auth user called");
+    next();
+}
+
+function loggedInUserRequest(req, res, next) {
+    console.log("user has initiated request");
+    next();
+}
 
 // create a new user
 
@@ -123,6 +138,7 @@ app.delete("/user/:id", (req, res) => {
 })
 
 routes(app);
+userRoutes(app);
 // sql ---- tabular format
 // mongodb --- nonrelational database
 
