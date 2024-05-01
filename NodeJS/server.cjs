@@ -2,14 +2,26 @@ const express = require("express");
 const mongoose = require("mongoose");
 const routes =  require("./Routes/restaurants.routes.cjs");
 const userRoutes = require("./Routes/users.routes.cjs");
+const cors = require("cors");
+const ws = require("ws");
 
 const app = express();
 
 // built in middlewares
 app.use(express.json());
 
-app.listen("5100", () => {
+app.use(cors());
+
+const server = app.listen("5100", () => {
     console.log("server is running on port 5100");
+})
+
+const wss = new ws.WebSocketServer({server});
+
+wss.on("connection", (ws) =>{
+    ws.on("message", (data) =>{
+        ws.send("hello!! Thanks for the message");
+    })
 })
 
 mongoose.connect("mongodb+srv://internshala:internshala@cluster0.ftm2cjm.mongodb.net/");

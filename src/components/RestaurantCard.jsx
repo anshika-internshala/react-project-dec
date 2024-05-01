@@ -21,7 +21,7 @@ export const RestaurantCard = (props) => {
         />
         <h2>{name}</h2>
         <span>
-          <FontAwesomeIcon icon={faStar} /> {avgRating} {sla.deliveryTime}
+          <FontAwesomeIcon icon={faStar} /> {avgRating}
         </span>
         <span>{cuisines}</span>
         <span>{locality}</span>
